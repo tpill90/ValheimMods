@@ -1,0 +1,10 @@
+﻿{
+  "name": "FarmingSkill",
+  "description": "",
+  "version_number": "0.0.1",
+  "website_url": "https://github.com/tpill90/ValheimMods/tree/master/FarmingSkill",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.1700",
+    "pipakin-SkillInjector-1.1.1"
+  ]
+}

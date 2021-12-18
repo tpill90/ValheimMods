@@ -16,6 +16,14 @@ param(
     [System.String]$ProjectPath
 )
 
+Write-Host ""
+Write-Host "Target : $Target"
+Write-Host "TargetPath : $TargetPath"
+Write-Host "TargetAssembly : $TargetAssembly"
+Write-Host "ValheimPath : $ValheimPath"
+Write-Host "ProjectPath : $ProjectPath"
+Write-Host ""
+
 # Make sure Get-Location is the script path
 Push-Location -Path (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
@@ -61,15 +69,29 @@ if ($Target.Equals("Debug")) {
     #[Environment]::SetEnvironmentVariable('DNSPY_UNITY_DBG2','','User')
 }
 
-if($Target.Equals("Release")) {
+if($Target.Equals("Release")) 
+{
     Write-Host "Packaging for ThunderStore..."
     $Package="Package"
     $PackagePath="$ProjectPath\$Package"
 
-    Write-Host "$PackagePath\$TargetAssembly"
+    
+    if(-Not(Test-Path "$PackagePath\plugins"))
+    {
+        New-Item -ItemType Directory "$PackagePath\plugins"
+    }
+
     Copy-Item -Path "$TargetPath\$TargetAssembly" -Destination "$PackagePath\plugins\$TargetAssembly" -Force
     Copy-Item -Path "$ProjectPath\README.md" -Destination "$PackagePath\README.md" -Force
-    Compress-Archive -Path "$PackagePath\*" -DestinationPath "$TargetPath\$TargetAssembly.zip" -Force
+
+    # Saves the published package in the solution root
+    $rootDirectory = (get-item $ProjectPath ).parent.FullName
+    if(-Not(Test-Path "$rootDirectory\publish"))
+    {
+        New-Item -ItemType Directory "$rootDirectory\publish"
+    }
+    Compress-Archive -Path "$PackagePath\*" -DestinationPath "$rootDirectory\publish\$name.zip" -Force
+    Write-Host "Done..."
 }
 
 # Pop Location
