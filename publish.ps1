@@ -16,6 +16,8 @@ param(
     [System.String]$ProjectPath
 )
 
+$ErrorActionPreference = "Stop"
+
 Write-Host ""
 Write-Host "Target : $Target"
 Write-Host "TargetPath : $TargetPath"

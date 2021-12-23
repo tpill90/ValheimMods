@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using BepInEx;
 using HarmonyLib;
 using Pipakin.SkillInjectorMod;
-using UnityEngine;
 
 namespace FarmingSkill
 {
@@ -13,7 +10,6 @@ namespace FarmingSkill
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class FarmingSkill : BaseUnityPlugin
     {
-		//TODO reset dependencies and see what needs to be reinstalled.
         const string MOD_ID = "tpill90.FarmingSkill";
         private readonly Harmony harmony = new Harmony(MOD_ID);
 
@@ -22,35 +18,36 @@ namespace FarmingSkill
 
         void Awake()
         {
-            Debug.Log("Loading Farming Skill Mod...");
+            Logger.LogInfo("Loading FarmingSkill Mod...");
 
             harmony.PatchAll(typeof(ReduceCultivatorStaminaCost));
-            harmony.PatchAll(typeof(PlacePiece));
+            harmony.PatchAll(typeof(ConsumeResources));
 
             SkillInjector.RegisterNewSkill(SKILL_TYPE, "Farming", "Affects cultivator stamina use", 1.0f, 
                 TextureLoader.LoadCustomTexture("FarmingSkill.cultivator.png"), Skills.SkillType.Run);
         }
 
-        //TODO incompatible with mass farming, does not correctly raise the skill level
-        [HarmonyPatch(typeof(Player), nameof(Player.PlacePiece))]
-        public static class PlacePiece
+        //TODO try to format these harmony patches differently, hard to read like this
+        [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources))]
+        public static class ConsumeResources
         {
-            [HarmonyPostfix]
-            public static void PostFix(Player __instance, ref bool __result, Piece piece)
+            public static List<string> _validPlantIds = new List<string>()
             {
-                var successful = __result;
-                if (!successful)
-                {
-                    return;
-                }
+                "$item_turnipseeds", "$item_turnip",
+                "$item_onionseeds", "$item_onion",
+                "$item_carrotseeds", "$item_carrot",
+                "$item_barley", "$item_flax",
+                "$item_fircone", "$item_pinecone", "$item_beechseeds", "$item_birchseeds"
+            };
 
-                var plant = piece.gameObject.GetComponent<Plant>();
-                if (!plant)
+            [HarmonyPostfix]
+            public static void PostFix(Player __instance, Piece.Requirement[] requirements, int qualityLevel)
+            {
+                var itemId = requirements[0].m_resItem.m_itemData.m_shared.m_name;
+                if (_validPlantIds.Contains(itemId))
                 {
-                    return;
+                    __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
                 }
-
-                __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
             }
         }
 

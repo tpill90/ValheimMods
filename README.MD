@@ -98,7 +98,7 @@ When Valheim updates it is likely that parts of the assembly files change. If th
 | --- | --- |
 | Template used to create this project| https://github.com/Valheim-Modding/JotunnModStub |
 | Jotunn Mod LIbrary Tutorials | https://valheim-modding.github.io/Jotunn/tutorials/overview.html |
-
+| Logging with BepinEx | https://docs.bepinex.dev/v5.4.11/articles/dev_guide/plugin_tutorial/4_logging.html |
 
 
 
