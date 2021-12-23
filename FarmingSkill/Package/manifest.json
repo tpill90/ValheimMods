@@ -1,6 +1,6 @@
 ﻿{
   "name": "FarmingSkill",
-  "description": "",
+  "description": "Adds a skill that reduces cultivator stamina cost",
   "version_number": "0.0.2",
   "website_url": "https://github.com/tpill90/ValheimMods/tree/master/FarmingSkill",
   "dependencies": [

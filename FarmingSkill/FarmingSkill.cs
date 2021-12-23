@@ -13,6 +13,7 @@ namespace FarmingSkill
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class FarmingSkill : BaseUnityPlugin
     {
+		//TODO reset dependencies and see what needs to be reinstalled.
         const string MOD_ID = "tpill90.FarmingSkill";
         private readonly Harmony harmony = new Harmony(MOD_ID);
 
@@ -30,8 +31,7 @@ namespace FarmingSkill
                 TextureLoader.LoadCustomTexture("FarmingSkill.cultivator.png"), Skills.SkillType.Run);
         }
 
-        
-
+        //TODO incompatible with mass farming, does not correctly raise the skill level
         [HarmonyPatch(typeof(Player), nameof(Player.PlacePiece))]
         public static class PlacePiece
         {
