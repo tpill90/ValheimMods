@@ -1,5 +1,6 @@
-﻿# JotunnModStub
-Upon building for release, this README.md is copied into the `Package` folder for thunderstore packaging. Remember to also edit the manifest.json and supply your own mod icon.
+﻿# FarmingSkill
+
+Adds a skill for farming to the game.  At a max level of 100, it will reduce the stamina cost of using the cultivator by 66.7%.
 
 ## Installation (manual)
 
@@ -11,4 +12,3 @@ Upon building for release, this README.md is copied into the `Package` folder fo
 
 
 ## Known issues
-You can find the github at:
