@@ -367,3 +367,4 @@ FodyWeavers.xsd
 
 # not the generated dll for thunderstore
 */Package/plugins/*
+/FarmingSkill/Package/README.md

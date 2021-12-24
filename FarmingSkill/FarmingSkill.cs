@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
+﻿using BepInEx;
 using HarmonyLib;
 using Pipakin.SkillInjectorMod;
 
@@ -31,23 +29,21 @@ namespace FarmingSkill
         [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources))]
         public static class ConsumeResources
         {
-            public static List<string> _validPlantIds = new List<string>()
-            {
-                "$item_turnipseeds", "$item_turnip",
-                "$item_onionseeds", "$item_onion",
-                "$item_carrotseeds", "$item_carrot",
-                "$item_barley", "$item_flax",
-                "$item_fircone", "$item_pinecone", "$item_beechseeds", "$item_birchseeds"
-            };
-
             [HarmonyPostfix]
             public static void PostFix(Player __instance, Piece.Requirement[] requirements, int qualityLevel)
             {
-                var itemId = requirements[0].m_resItem.m_itemData.m_shared.m_name;
-                if (_validPlantIds.Contains(itemId))
+                if (__instance.GetRightItem() == null)
                 {
-                    __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
+                    return;
                 }
+
+                string usedItemName = __instance.GetRightItem().m_shared.m_name;
+                if (usedItemName != "$item_cultivator")
+                {
+                    return;
+                }
+                
+                __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
             }
         }
 
