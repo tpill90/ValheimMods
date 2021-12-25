@@ -4,7 +4,7 @@ using Pipakin.SkillInjectorMod;
 
 namespace FarmingSkill
 {
-    [BepInPlugin("tpill90.FarmingSkill", "FarmingSkill", "0.0.1")]
+    [BepInPlugin("tpill90.FarmingSkill", "FarmingSkill", "0.0.4")]
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class FarmingSkill : BaseUnityPlugin
     {
@@ -42,8 +42,17 @@ namespace FarmingSkill
                 {
                     return;
                 }
-                
-                __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
+
+                var playerIsRested = __instance.m_seman.HaveStatusEffect("Rested");
+                if (playerIsRested)
+                {
+                    // Being rested grants a 50% XP bonus
+                    __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1.5f);
+                }
+                else
+                {
+                    __instance.RaiseSkill((Skills.SkillType)SKILL_TYPE, 1);
+                }
             }
         }
 
