@@ -61,9 +61,11 @@ if ($Target.Equals("Debug")) {
     
     $mono = "$ValheimPath\MonoBleedingEdge\EmbedRuntime";
     Write-Host "Copy mono-2.0-bdwgc.dll to $mono"
-    if (!(Test-Path -Path "$mono\mono-2.0-bdwgc.dll.orig")) {
+    if (!(Test-Path -Path "$mono\mono-2.0-bdwgc.dll.orig")) 
+    {
         Copy-Item -Path "$mono\mono-2.0-bdwgc.dll" -Destination "$mono\mono-2.0-bdwgc.dll.orig" -Force
     }
+    #TODO this line breaks when compiling two projects in parallel
     Copy-Item -Path "$(Get-Location)\libraries\Debug\mono-2.0-bdwgc.dll" -Destination "$mono" -Force
     
     # set dnspy debugger env
