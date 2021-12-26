@@ -50,7 +50,8 @@ if (Test-Path -Path "$pdb") {
 # Main Script
 Write-Host "Publishing for $Target from $TargetPath"
 
-if ($Target.Equals("Debug")) {
+if ($Target.Equals("Debug")) 
+{
     Write-Host "Updating local installation in $ValheimPath"
     
     $plug = New-Item -Type Directory -Path "$ValheimPath\BepInEx\plugins\$name" -Force
@@ -60,13 +61,17 @@ if ($Target.Equals("Debug")) {
     Copy-Item -Path "$TargetPath\$name.dll.mdb" -Destination "$plug" -Force
     
     $mono = "$ValheimPath\MonoBleedingEdge\EmbedRuntime";
-    Write-Host "Copy mono-2.0-bdwgc.dll to $mono"
     if (!(Test-Path -Path "$mono\mono-2.0-bdwgc.dll.orig")) 
     {
+        Write-Host "Copy mono-2.0-bdwgc.dll to $mono"
         Copy-Item -Path "$mono\mono-2.0-bdwgc.dll" -Destination "$mono\mono-2.0-bdwgc.dll.orig" -Force
+
+        $monoFileHash = Get-FileHash -Path "$mono\mono-2.0-bdwgc.dll" -Algorithm MD5
+        if($monoFileHash -ne "C9C45BB4BEB556CB5AE25EBDE489416A")
+        {
+            Copy-Item -Path "$(Get-Location)\libraries\Debug\mono-2.0-bdwgc.dll" -Destination "$mono" -Force
+        }
     }
-    #TODO this line breaks when compiling two projects in parallel
-    Copy-Item -Path "$(Get-Location)\libraries\Debug\mono-2.0-bdwgc.dll" -Destination "$mono" -Force
     
     # set dnspy debugger env
     #$dnspy = '--debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:56000,suspend=y,no-hide-debugger'
