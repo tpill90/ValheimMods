@@ -24,7 +24,7 @@ $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 # Getting Valheim install dir
-[xml]$parsedProps = Get-Content .\Environment.props
+[xml]$parsedProps = Get-Content ..\Environment.props
 $valheimInstallDir = $parsedProps.Project.PropertyGroup.VALHEIM_INSTALL
 if(-Not(Test-Path $valheimInstallDir))
 {
