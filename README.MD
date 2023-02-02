@@ -86,3 +86,4 @@ When Valheim updates it is likely that parts of the assembly files change. If th
 | Jötunn's in depth setup guide | https://valheim-modding.github.io/Jotunn/guides/overview.html |
 | Jötunn Mod Library Tutorials | https://valheim-modding.github.io/Jotunn/tutorials/overview.html |
 | Logging with BepinEx | https://docs.bepinex.dev/v5.4.11/articles/dev_guide/plugin_tutorial/4_logging.html |
+| Helpful developmen mod, launches game automatically and picks world | https://valheim.thunderstore.io/package/abearcodes/Simple_Auto_Game_Start/ |

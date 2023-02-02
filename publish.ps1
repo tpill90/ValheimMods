@@ -42,15 +42,16 @@ Push-Location -Path (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Plugin name without ".dll"
 $name = "$TargetAssembly" -Replace('.dll')
 
-# Create the mdb file
-$pdb = "$TargetPath\$name.pdb"
-if (Test-Path -Path "$pdb") {
+Write-Host "--- Publishing $Target ---"
+
+# Create the mdb file, for debugging with Mono
+if (Test-Path -Path "$TargetPath\$name.pdb") 
+{
     Write-Host "Create mdb file for plugin $name"
     Invoke-Expression "& `"$(Get-Location)\libraries\Debug\pdb2mdb.exe`" `"$TargetPath\$TargetAssembly`""
 }
 
 # Main Script
-Write-Host "Publishing for $Target from $TargetPath"
 
 if ($Target.Equals("Debug")) 
 {
@@ -93,7 +94,6 @@ if($Target.Equals("Release"))
     }
 
     Copy-Item -Path "$TargetPath\$TargetAssembly" -Destination "$PackagePath\plugins\$TargetAssembly" -Force
-    Copy-Item -Path "$ProjectPath\README.md" -Destination "$PackagePath\README.md" -Force
 
     # Saves the published package in the solution root
     $rootDirectory = (get-item $ProjectPath ).parent.FullName
