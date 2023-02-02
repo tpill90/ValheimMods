@@ -1,3 +1,5 @@
+#TODO compare this to the latest JotunnModStub
+
 param(
     [Parameter(Mandatory)]
     [ValidateSet('Debug','Release')]

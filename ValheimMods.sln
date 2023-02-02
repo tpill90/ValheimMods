@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmingSkill", "FarmingSkil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66C03B20-6F21-4CEE-8AF5-D586E3B4B98E}"
 	ProjectSection(SolutionItems) = preProject
+		Environment.props = Environment.props
 		README.MD = README.MD
 	EndProjectSection
 EndProject

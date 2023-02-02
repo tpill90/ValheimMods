@@ -1,48 +1,34 @@
 # Valheim Mods
 
-A Valheim mod stub project using [Jötunn](https://github.com/Valheim-Modding/Jotunn) including build tools for debugging your code in Visual Studio and a basic Unity project stub. There is no actual plugin content included, just a bare minimum plugin class. 
+Several mods for the game Valheim, by me.
 
-# Quick Setup Guide
-
-These are quick setup steps with no context provided. Please see Jötunns [Github Pages](https://valheim-modding.github.io/Jotunn/guides/overview.html) for a more in depth guide and documentation.
+Mods can be found on Valheim [ThunderStore](https://valheim.thunderstore.io/package/tpill90/)
 
 ## Development Environment Setup
 
-How to setup the development enviroment for this project.
+How to setup the development enviroment for this project:
 
-1. Install [Visual Studio 2019](https://visualstudio.microsoft.com) and add the C# workload.
-2. Create a new environment file `Environment.props` in the projects base path `<JotunnModStub>`. Paste this snippet and change the path according to your local Valheim installation.
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <!-- Needs to be your path to the base Valheim folder -->
-    <VALHEIM_INSTALL>F:\Steam\steamapps\common\Valheim</VALHEIM_INSTALL>
-  </PropertyGroup>
-</Project>
-```
+1. Install [Visual Studio 2022](https://visualstudio.microsoft.com) and add the C# workload.
+2. Update `Environment.props` in the projects base path, and update the property `VALHEIM_INSTALL` to point to the path of your installed copy of Valheim.
 3. Install the required dependencies by running the script `./scripts/Download-Dependencies.ps1` in Powershell
-4. Edit `DoPrebuild.props` in the project base path and change `ExecutePrebuild` to `true` if you want Jötunn to automatically generate publicized and MMHook versions of the game dlls for you.
+4. Open `ValheimMods.sln` with Visual Studio, and `build` the project at least once.
+5. Close Visual Studio, and reopen `ValheimMods.sln`.  For whatever reason Visual Studio will not detect the publicized assemblies unless this is done.
 
-### Post Build automations
+## Post Build automations
 
 Included in this repo is a PowerShell script `publish.ps1`. The script is referenced in the project file as a post-build event. Depending on the chosen configuration in Visual Studio the script executes the following actions.
 
-### Building Debug
+## Building Debug
 
 * The compiled dll file for this project is copied to `<ValheimDir>\BepInEx\plugins`.
 * A .mdb file is generated for the compiled project dll and copied to `<ValheimDir>\BepInEx\plugins`.
 * `<JotunnModStub>\libraries\Debug\mono-2.0-bdwgc.dll` is copied to `<ValheimDir>\MonoBleedingEdge\EmbedRuntime` replacing the original file (a backup is created before).
 
-### Building Release
+## Building Release
 
 * A compressed file with the binaries is created in `<JotunnModStub>\Packages`ready for upload to ThunderStore. Dont forget to include your information in the manifest.json and to change the project's readme file.
 
-## Developing Assets with Unity
-
-New Assets can be created with Unity and imported into Valheim using the mod. A Unity project is included in this repository under `<JotunnModStub>\JotunnModUnity`.
-
-### Unity Editor Setup
+## Unity Editor Setup
 
 1. [Download](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) UnityHub directly from Unity or install it with the Visual Studio Installer via `Individual Components` -> `Visual Studio Tools for Unity`.
 2. You will need an Unity account to register your PC and get a free licence. Create the account, login with it in Unity Hub and get your licence via `Settings` -> `Licence Management`.
@@ -82,11 +68,11 @@ Your own code can be debugged in source with Visual Studio itself. You cannot de
 
 When Valheim updates it is likely that parts of the assembly files change. If this is the case, the references to the assembly files must be renewed in Visual Studio and Unity.
 
-### Visual Studio actions
+## Visual Studio actions
 
 1. There is a file called DoPrebuild.props included in the solution. When you set its only value to true, Jötunn will automatically generate publicized and MMHook assemblies for you. Otherwise you have to do this step manually.
 
-### Unity actions
+## Unity actions
 
 1. Copy all `assembly_*.dll` from `<ValheimDir>\valheim_Data\Managed` into `<JotunnModStub>\JotunnModUnity\Assets\Assemblies`. <br />
   **Do this directly in the filesystem - don't import the dlls in Unity**.
@@ -97,8 +83,6 @@ When Valheim updates it is likely that parts of the assembly files change. If th
 | Description | Link |
 | --- | --- |
 | Template used to create this project| https://github.com/Valheim-Modding/JotunnModStub |
-| Jotunn Mod LIbrary Tutorials | https://valheim-modding.github.io/Jotunn/tutorials/overview.html |
+| Jötunn's in depth setup guide | https://valheim-modding.github.io/Jotunn/guides/overview.html |
+| Jötunn Mod Library Tutorials | https://valheim-modding.github.io/Jotunn/tutorials/overview.html |
 | Logging with BepinEx | https://docs.bepinex.dev/v5.4.11/articles/dev_guide/plugin_tutorial/4_logging.html |
-
-
-
