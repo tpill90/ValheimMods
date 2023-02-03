@@ -94,6 +94,7 @@ if($Target.Equals("Release"))
     }
 
     Copy-Item -Path "$TargetPath\$TargetAssembly" -Destination "$PackagePath\plugins\$TargetAssembly" -Force
+    Copy-Item -Path "$ProjectPath\README.md" -Destination "$PackagePath\README.md" -Force
 
     # Saves the published package in the solution root
     $rootDirectory = (get-item $ProjectPath ).parent.FullName
