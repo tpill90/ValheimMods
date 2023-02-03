@@ -53,6 +53,7 @@ if (Test-Path -Path "$TargetPath\$name.pdb")
 
 # Main Script
 
+# TODO should probably implement a "clean project" target
 if ($Target.Equals("Debug")) 
 {
     Write-Host "Updating local installation in $ValheimPath"
