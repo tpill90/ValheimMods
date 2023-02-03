@@ -10,7 +10,7 @@ namespace HoeSkill
     [BepInDependency("com.pipakin.SkillInjectorMod")]
     public class HoeSkill : BaseUnityPlugin
     {
-        public static readonly int SKILL_ID = 288;
+        private static readonly int SKILL_ID = 288;
         public static readonly Skills.SkillType HoeSkillType = (Skills.SkillType)SKILL_ID;
 
         public static ManualLogSource UnityLogger;
@@ -20,10 +20,11 @@ namespace HoeSkill
             UnityLogger = Logger;
             UnityLogger.LogInfo("Loading HoeSkill Mod...");
 
-            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), null);
+            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
-            SkillInjector.RegisterNewSkill(SKILL_ID, "Hoe", "Affects cultivator stamina use", 1.0f, 
-                TextureLoader.LoadCustomTexture("HoeSkill.hoe.png"), Skills.SkillType.Run);
+            var skillIconTexture = TextureLoader.LoadCustomTexture("HoeSkill.hoe.png");
+            SkillInjector.RegisterNewSkill(SKILL_ID, "Hoe", "Affects cultivator stamina use", 
+                1.0f, skillIconTexture, Skills.SkillType.Run);
         }
     }
 
@@ -45,8 +46,8 @@ namespace HoeSkill
                 return;
             }
 
-            // Automatically handles rested XP bonus
-            __instance.RaiseSkill(HoeSkill.HoeSkillType, 1);
+            // Increments total skill XP by 
+            __instance.RaiseSkill(HoeSkill.HoeSkillType);
         }
 
         [HarmonyPrefix]

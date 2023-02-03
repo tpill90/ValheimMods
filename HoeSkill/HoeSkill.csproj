@@ -46,7 +46,6 @@
 
   <ItemGroup>
     <Compile Include="HoeSkill.cs" />
-    <Compile Include="Properties\IgnoreAccessModifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextureLoader.cs" />
     <None Include="app.config" />
