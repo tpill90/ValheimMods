@@ -17,7 +17,7 @@ namespace HoeSkill
             // Create empty texture, then load raw image data into it
             var texture2D = new Texture2D(0, 0);
             texture2D.LoadImage(rawBytes);
-            
+
             return Sprite.Create(texture2D, new Rect(0f, 0f, 32f, 32f), Vector2.zero);
         }
 

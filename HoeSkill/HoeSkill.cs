@@ -23,7 +23,7 @@ namespace HoeSkill
             Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
             var skillIconTexture = TextureLoader.LoadCustomTexture("HoeSkill.hoe.png");
-            SkillInjector.RegisterNewSkill(SKILL_ID, "Hoe", "Affects cultivator stamina use", 
+            SkillInjector.RegisterNewSkill(SKILL_ID, "Hoe", "Affects cultivator stamina use",
                 1.0f, skillIconTexture, Skills.SkillType.Run);
         }
     }
@@ -69,7 +69,7 @@ namespace HoeSkill
             if (!__instance.GetSkills().m_skillData.ContainsKey(HoeSkill.HoeSkillType))
             {
                 return;
-            } 
+            }
 
             var currentSkill = __instance.GetSkills().m_skillData[HoeSkill.HoeSkillType];
             // Reduces stamina by a maximum of 80% at level 100

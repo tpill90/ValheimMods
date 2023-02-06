@@ -1,25 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\Environment.props" Condition="Exists('..\Environment.props')" />
 
-  <!-- General settings -->
   <PropertyGroup>
     <!-- v4.7.2 is required for SkillInjector -->
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
     <AssemblyName>HoeSkill</AssemblyName>
     <RootNamespace>HoeSkill</RootNamespace>
     <Authors>tpill90</Authors>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-
-    <!-- TODO is this needed? -->
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
 
     <!-- Used for Debugging -->
     <StartAction>Program</StartAction>
@@ -29,15 +18,14 @@
   </PropertyGroup>
 
   <!-- TODO is this needed? -->
-  <Import Project="..\packages\JotunnLib.2.10.2\build\JotunnLib.props" Condition="Exists('..\packages\JotunnLib.2.10.2\build\JotunnLib.props')" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -45,9 +33,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="HoeSkill.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextureLoader.cs" />
     <None Include="app.config" />
     <None Include="Package\README.md" />
 
@@ -57,25 +42,27 @@
     <Content Include="Package\icon.png" />
   </ItemGroup>
 
-  <!-- TODO is this needed? -->
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="JotunnPostBuildTaskWin" Condition="'$(OS)' == 'Windows_NT'">
     <Exec Command="powershell.exe -ExecutionPolicy RemoteSigned -File &quot;$(SolutionDir)publish.ps1&quot; -Target &quot;$(ConfigurationName)&quot; -TargetPath &quot;$(TargetDir.TrimEnd('\'))&quot; -TargetAssembly &quot;$(TargetFileName)&quot; -ValheimPath &quot;$(VALHEIM_INSTALL.TrimEnd('\'))&quot; -ProjectPath &quot;$(ProjectDir.TrimEnd('\'))&quot; " />
   </Target>
+
   <PropertyGroup>
     <BuildDependsOn>
       $(BuildDependsOn);
       JotunnPostBuildTaskWin
     </BuildDependsOn>
   </PropertyGroup>
+
   <!-- Package references -->
   <ItemGroup>
     <Reference Include="SkillInjector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VALHEIM_INSTALL)\BepInEx\plugins\SkillInjector\SkillInjector.dll</HintPath>
     </Reference>
-    <PackageReference Include="JotunnLib" Version="2.10.2" />
     <PackageReference Include="MonoMod" Version="21.12.13.1" />
+    <!-- JotunnLib is required in order to correctly compile the project, due to the automatic ddl references to the publicized Unity assemblies -->
+    <PackageReference Include="JotunnLib" Version="2.10.2" />
+
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

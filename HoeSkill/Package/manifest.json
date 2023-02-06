@@ -1,7 +1,7 @@
 ﻿{
   "name": "HoeSkill",
   "description": "Adds a skill that reduces hoe stamina cost",
-  "version_number": "0.0.1",
+  "version_number": "0.0.3",
   "website_url": "https://github.com/tpill90/ValheimMods/tree/master/HoeSkill",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.1700",
