@@ -1,4 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Environment.props" Condition="Exists('..\Environment.props')" />
+
   <PropertyGroup>
     <!-- v4.7.2 is required for SkillInjector -->
     <TargetFramework>net472</TargetFramework>
@@ -40,7 +42,7 @@
     <Content Include="Package\icon.png" />
   </ItemGroup>
 
-  <Target Name="JotunnPostBuildTaskWin" Condition="'$(OS)' == 'Windows_NT'">
+  <Target Name="JotunnPostBuildTaskWin" AfterTargets="Build">
     <Exec Command="powershell.exe -ExecutionPolicy RemoteSigned -File &quot;$(SolutionDir)publish.ps1&quot; -Target &quot;$(ConfigurationName)&quot; -TargetPath &quot;$(TargetDir.TrimEnd('\'))&quot; -TargetAssembly &quot;$(TargetFileName)&quot; -ValheimPath &quot;$(VALHEIM_INSTALL.TrimEnd('\'))&quot; -ProjectPath &quot;$(ProjectDir.TrimEnd('\'))&quot; " />
   </Target>
 
