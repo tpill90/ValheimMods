@@ -3,8 +3,8 @@
     <!-- v4.7.2 is required for SkillInjector -->
     <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
-    <AssemblyName>HoeSkill</AssemblyName>
-    <RootNamespace>HoeSkill</RootNamespace>
+    <AssemblyName>BuildPieceDropper</AssemblyName>
+    <RootNamespace>BuildPieceDropper</RootNamespace>
     <Authors>tpill90</Authors>
     <AppDesignerFolder>Properties</AppDesignerFolder>
 
@@ -31,13 +31,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Package\**" />
+    <EmbeddedResource Remove="Package\**" />
+    <None Remove="Package\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="app.config" />
-    <None Include="Package\README.md" />
 
     <!-- Publish package files -->
-    <None Include="Package\manifest.json" />
-    <EmbeddedResource Include="hoe.png" />
-    <Content Include="Package\icon.png" />
   </ItemGroup>
 
   <Target Name="JotunnPostBuildTaskWin" Condition="'$(OS)' == 'Windows_NT'">

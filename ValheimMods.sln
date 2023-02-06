@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.MD = README.MD
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoeSkill", "HoeSkill\HoeSkill.csproj", "{36F01755-DA0A-46B7-99C6-418A1FA101ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoeSkill", "HoeSkill\HoeSkill.csproj", "{36F01755-DA0A-46B7-99C6-418A1FA101ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildPieceDropper", "BuildPieceDropper\BuildPieceDropper.csproj", "{1923938E-29D6-48A3-8CFB-FA4DA3E9E657}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{36F01755-DA0A-46B7-99C6-418A1FA101ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F01755-DA0A-46B7-99C6-418A1FA101ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F01755-DA0A-46B7-99C6-418A1FA101ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1923938E-29D6-48A3-8CFB-FA4DA3E9E657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1923938E-29D6-48A3-8CFB-FA4DA3E9E657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1923938E-29D6-48A3-8CFB-FA4DA3E9E657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1923938E-29D6-48A3-8CFB-FA4DA3E9E657}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
