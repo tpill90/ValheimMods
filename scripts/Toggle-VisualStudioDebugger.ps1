@@ -21,5 +21,4 @@ if(Test-Path "$valheimInstallDir\UnityPlayer.dll")
     Add-Content "$valheimInstallDir\valheim_Data\boot.config" "player-connection-debug=1"
 }
 
-
 Pop-Location

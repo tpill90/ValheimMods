@@ -57,10 +57,6 @@
 
   <!-- Package references -->
   <ItemGroup>
-    <Reference Include="SkillInjector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\BepInEx\plugins\SkillInjector\SkillInjector.dll</HintPath>
-    </Reference>
     <PackageReference Include="MonoMod" Version="21.12.13.1" />
     <!-- JotunnLib is required in order to correctly compile the project, due to the automatic ddl references to the publicized Unity assemblies -->
     <PackageReference Include="JotunnLib" Version="2.10.2" />
