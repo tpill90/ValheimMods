@@ -24,6 +24,19 @@ Included in this repo is a PowerShell script `publish.ps1`. The script is refere
 * A .mdb file is generated for the compiled project dll and copied to `<ValheimDir>\BepInEx\plugins`.
 * `<JotunnModStub>\libraries\Debug\mono-2.0-bdwgc.dll` is copied to `<ValheimDir>\MonoBleedingEdge\EmbedRuntime` replacing the original file (a backup is created before).
 
+## Debugging with Visual Studio
+
+Your own code can be debugged in source with Visual Studio itself. You cannot debug game disassemblies as with dnSpy, though.
+
+1. Install Visual Studio Tools for Unity (can be done in Visual Studio installer via `Individual Components` -> `Visual Studio Tools for Unity`)
+3. Build the project with target `Debug`. The publish.ps1 PowerShell script from this repo...
+   * copies the generated mod `.dll` and `.pdb` to \<ValheimDir>\BepInEx\plugins after a successful build
+   * automatically generates a `.dll.mdb` file, which is needed for Unity/mono debugging. It should be in \<ValheimDir>\BepInEx\plugins, too.
+   * copies the patched mono-2.0-bdwgc.dll from .\libraries\Debug to \<ValheimDir>\MonoBleedingEdge\EmbedRuntime and makes a backup copy of the original.
+4. Start Valheim (either directly from Steam or hit F5 in Visual Studio when Steam is running)
+5. Go to `Debug` -> `Attach Unity debugger`
+6. Since the patched mono dll does not open the same port as Unity Dev builds, you have to click on `Input IP`. It should fill in your local IP automatically. you just have to change the port to `55555`and the debugger should connect.
+
 ## Building Release
 
 * A compressed file with the binaries is created in `<JotunnModStub>\Packages`ready for upload to ThunderStore. Dont forget to include your information in the manifest.json and to change the project's readme file.
@@ -32,12 +45,9 @@ Included in this repo is a PowerShell script `publish.ps1`. The script is refere
 
 1. [Download](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) UnityHub directly from Unity or install it with the Visual Studio Installer via `Individual Components` -> `Visual Studio Tools for Unity`.
 2. You will need an Unity account to register your PC and get a free licence. Create the account, login with it in Unity Hub and get your licence via `Settings` -> `Licence Management`.
-3. Install Unity Editor version 2019.4.31f.
+3. Install Unity Editor version v2020.3.44f1.
 4. Copy all `assembly_*.dll` from `<ValheimDir>\valheim_Data\Managed` into `<JotunnModStub>\JotunnModUnity\Assets\Assemblies`. **Do this directly in the filesystem - don't open Unity first or import the dlls directly in Unity**.
 5. **Warning:** These assembly files are copyrighted material and you can theoretically get into trouble when you distribute them in your github repository. To avoid that there is a .gitignore file in the Unity project folder. Keep that when you clone or copy this repository.
-6. Open Unity Hub and add the JotunnModUnity project.
-7. Open the project.
-7. Install the `AssetBundle Browser` package in the Unity Editor via `Window`-> `Package Manager` for easy bundle creation.
 
 ## Debugging with dnSpy
 
@@ -51,32 +61,7 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 6. Now go to `Debug` -> `Start Debugging` and select Unity debug engine. Select your valheim.exe as the executable and hit OK.
 7. If you did set some breakpoints, the game will halt when it hits the breakpoint in memory and dnSpy will show you the objects in memory and much more useful stuff.
 
-## Debugging with Visual Studio
 
-Your own code can be debugged in source with Visual Studio itself. You cannot debug game disassemblies as with dnSpy, though.
-
-1. Install Visual Studio Tools for Unity (can be done in Visual Studio installer via `Individual Components` -> `Visual Studio Tools for Unity`)
-3. Build the project with target `Debug`. The publish.ps1 PowerShell script from this repo...
-   * copies the generated mod .dll and .pdb to \<ValheimDir>\BepInEx\plugins after a successful build
-   * automatically generates a JotunnModStub.dll.mdb file, which is needed for Unity/mono debugging. It should be in \<ValheimDir>\BepInEx\plugins, too.
-   * copies the patched mono-2.0-bdwgc.dll from .\libraries\Debug to \<ValheimDir>\MonoBleedingEdge\EmbedRuntime and makes a backup copy of the original.
-4. Start Valheim (either directly from Steam or hit F5 in Visual Studio when Steam is running)
-5. Go to `Debug` -> `Attach Unity debugger`
-6. Since the patched mono dll does not open the same port as Unity Dev builds, you have to click on `Input IP`. It should fill in your local IP automatically. you just have to change the port to `55555`and the debugger should connect.
-
-## Actions after a game update
-
-When Valheim updates it is likely that parts of the assembly files change. If this is the case, the references to the assembly files must be renewed in Visual Studio and Unity.
-
-## Visual Studio actions
-
-1. There is a file called DoPrebuild.props included in the solution. When you set its only value to true, Jötunn will automatically generate publicized and MMHook assemblies for you. Otherwise you have to do this step manually.
-
-## Unity actions
-
-1. Copy all `assembly_*.dll` from `<ValheimDir>\valheim_Data\Managed` into `<JotunnModStub>\JotunnModUnity\Assets\Assemblies`. <br />
-  **Do this directly in the filesystem - don't import the dlls in Unity**.
-2. Go to Unity Editor and press `Ctrl+R`. This reloads all files from the filesystem and "re-imports" the copied dlls into the project.
 
 ## Mod Development Resources
 
@@ -86,4 +71,4 @@ When Valheim updates it is likely that parts of the assembly files change. If th
 | Jötunn's in depth setup guide | https://valheim-modding.github.io/Jotunn/guides/overview.html |
 | Jötunn Mod Library Tutorials | https://valheim-modding.github.io/Jotunn/tutorials/overview.html |
 | Logging with BepinEx | https://docs.bepinex.dev/v5.4.11/articles/dev_guide/plugin_tutorial/4_logging.html |
-| Helpful developmen mod, launches game automatically and picks world | https://valheim.thunderstore.io/package/abearcodes/Simple_Auto_Game_Start/ |
+| Helpful development mod, launches game automatically and picks world | https://valheim.thunderstore.io/package/abearcodes/Simple_Auto_Game_Start/ |

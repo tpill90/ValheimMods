@@ -64,6 +64,7 @@ if ($Target.Equals("Debug"))
     Copy-Item -Path "$TargetPath\$name.pdb" -Destination "$plug" -Force
     Copy-Item -Path "$TargetPath\$name.dll.mdb" -Destination "$plug" -Force
     
+    # Sets up debugger requirements
     $mono = "$ValheimPath\MonoBleedingEdge\EmbedRuntime";
     if (!(Test-Path -Path "$mono\mono-2.0-bdwgc.dll.orig")) 
     {
@@ -76,10 +77,6 @@ if ($Target.Equals("Debug"))
             Copy-Item -Path "$(Get-Location)\libraries\Debug\mono-2.0-bdwgc.dll" -Destination "$mono" -Force
         }
     }
-    
-    # set dnspy debugger env
-    #$dnspy = '--debugger-agent=transport=dt_socket,server=y,address=127.0.0.1:56000,suspend=y,no-hide-debugger'
-    #[Environment]::SetEnvironmentVariable('DNSPY_UNITY_DBG2','','User')
 }
 
 if($Target.Equals("Release")) 

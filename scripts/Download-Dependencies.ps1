@@ -76,4 +76,7 @@ Ensure-DependencyIsInstalled "abearcodes-Simple_Auto_Game_Start"
 Write-Host "Copied auto game start config"
 Copy-Item -Path ../simpleautogamestart.cfg -Destination "$valheimInstallDir\BepInEx\config\com.github.abearcodes.valheim.simpleautogamestart.cfg" -Force
 
+# These are helpful for testing
+Ensure-DependencyIsInstalled "Nextek-SpeedyPaths"
+
 Pop-Location
